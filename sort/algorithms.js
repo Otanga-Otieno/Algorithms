@@ -65,6 +65,7 @@ function insertionSort(arr) {
 
 //4. Shell Sort
 function shellSort(arr) {
+    //var start = performance.now();
 
     let gaps = [5, 3, 1];
 
@@ -81,10 +82,43 @@ function shellSort(arr) {
             }
         }
     });
+    //var end = performance.now();
+    //console.log(end-start);
     return arr;
 }
 
-//arr = [1,3,5,2];
+
+//5. Comb Sort
+function combSort(arr) {
+
+    let gap = arr.length;
+    let isSorted = false;
+    const shrinkFactor = 1.3;
+
+    while(!isSorted) {
+        gap = Math.floor(gap/shrinkFactor);
+        if(gap <= 1) {
+            gap = 1;
+            isSorted = true;
+        }
+
+        let i=0;
+        while(i+gap < arr.length) {
+            if(arr[i] > arr[i+gap]) {
+                let swap = arr[i];
+                arr[i] = arr[i+gap];
+                arr[i+gap] = swap;
+                isSorted = false;
+                //console.log(arr);
+            }
+            i+=1;
+        }
+    }
+    return arr;
+}
+
+
+//arr = [3,1,5,2];
 arr = [86, 15, 9, 19, 11, 18, 54, 59, 46, 20, 71, 6, 99, 89, 95, 38, 17, 74, 30, 49];
-sortArr = shellSort(arr);
+sortArr = combSort(arr);
 console.log(sortArr);
