@@ -118,7 +118,43 @@ function combSort(arr) {
 }
 
 
+//6. Quick Sort
+//using Lomuto partition
+function quickSort(arr, left = 0, right = arr.length-1) {
+
+    if(left >= right || left < 0) return;
+
+    let pivot = partition(arr, left, right);
+    quickSort(arr, left, pivot-1);
+    quickSort(arr, pivot+1, right);
+    return arr;
+
+}
+
+function partition(arr, left, right) {
+
+    let pivot = arr[right];
+    let i = left-1;
+
+    for(let j=left; j<right; j++) {
+        if(arr[j] <= pivot) {
+            i+=1;
+            let swap = arr[i];
+            arr[i] = arr[j];
+            arr[j] = swap;
+        }
+    }
+
+    i+=1;
+    let swap = arr[i];
+    arr[i] = arr[right];
+    arr[right] = swap;
+    return i;
+
+}
+
+
 //arr = [3,1,5,2];
 arr = [86, 15, 9, 19, 11, 18, 54, 59, 46, 20, 71, 6, 99, 89, 95, 38, 17, 74, 30, 49];
-sortArr = combSort(arr);
+sortArr = quickSort(arr);
 console.log(sortArr);
