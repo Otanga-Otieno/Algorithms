@@ -154,7 +154,61 @@ function partition(arr, left, right) {
 }
 
 
+
+//Not-in place sorting
+
+//7. Merge Sort
+function mergeSort(arr, left=0, right=arr.length-1) {
+
+    if(left<right) {
+        let pivot = parseInt((left+right)/2);
+        mergeSort(arr, left, pivot);
+        mergeSort(arr, pivot+1, right);
+    
+        merge(arr, left, pivot, right);
+    }
+
+    return arr;
+}
+
+function merge(arr, left, pivot, right) {
+
+    let length1 = pivot-left+1, length2 = right-pivot;
+    let L = new Array(length1), R = new Array(length2);
+
+    for(let i=0; i<length1; i++) {
+        L[i] = arr[left+i];
+    }
+    for(let j=0; j<length2; j++) {
+        R[j] = arr[pivot+1+j];
+    }
+
+    let i=0, j=0, k=left;
+
+    while(i<length1 && j<length2) {
+        if(L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }k++;
+    }
+
+    while(i<length1) {
+        arr[k] = L[i];
+        i++, k++;
+    }
+
+    while(j<length2) {
+        arr[k] = R[j];
+        j++, k++;
+    }
+
+}
+
+
 //arr = [3,1,5,2];
 arr = [86, 15, 9, 19, 11, 18, 54, 59, 46, 20, 71, 6, 99, 89, 95, 38, 17, 74, 30, 49];
-sortArr = quickSort(arr);
+sortArr = mergeSort(arr);
 console.log(sortArr);
