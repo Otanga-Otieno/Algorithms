@@ -154,10 +154,51 @@ function partition(arr, left, right) {
 }
 
 
+//7. Heap Sort
+function heapSort(arr) {
+
+    let n = arr.length;
+
+    for(let i=Math.floor(n/2)-1; i>=0; i--) {
+        heapify(arr, n, i);
+    }
+
+    for(let i=n-1; i>0; i--) {
+        let swap = arr[0];
+        arr[0] = arr[i];
+        arr[i] = swap;
+        heapify(arr, i, 0);
+    }
+    return arr;
+}
+
+function heapify(arr, n, i) {
+
+    let largest = i, left = 2*i+1, right = 2*i+2;
+
+    if(left < n && arr[left] > arr[largest]) {
+        largest = left;
+    }
+
+    if(right < n && arr[right] > arr[largest]) {
+        largest = right;
+    }
+
+    if(largest != i) {
+        let swap = arr[i];
+        arr[i] = arr[largest];
+        arr[largest] = swap;
+        heapify(arr, n, largest);
+        //console.log(arr);
+    }
+
+}
+
+
 
 //Not-in place sorting
 
-//7. Merge Sort
+//8. Merge Sort
 function mergeSort(arr, left=0, right=arr.length-1) {
 
     if(left<right) {
@@ -210,5 +251,5 @@ function merge(arr, left, pivot, right) {
 
 //arr = [3,1,5,2];
 arr = [86, 15, 9, 19, 11, 18, 54, 59, 46, 20, 71, 6, 99, 89, 95, 38, 17, 74, 30, 49];
-sortArr = mergeSort(arr);
+sortArr = heapSort(arr);
 console.log(sortArr);
