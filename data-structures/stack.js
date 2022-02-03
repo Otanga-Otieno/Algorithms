@@ -6,13 +6,7 @@ class Stack {
 
     push(item) {
         let n = this.arr.length;
-        let arrcopy = new Array();
-        for(let i=0; i<n; i++) {
-            arrcopy[i] = this.arr[i];
-        }
-        arrcopy[n] = item;
-        this.arr = arrcopy;
-        arrcopy = undefined;
+        this.arr[n] = item;
     }
 
     pop() {
