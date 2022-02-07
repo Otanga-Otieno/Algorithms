@@ -27,6 +27,10 @@ class BinarySearchTree {
         }
     }
 
+    remove(value) {
+        this.root = this.removeNode(this.root, value);
+    }
+
     addNode(node, newNode) {
 
         if(newNode.value < node.value) {
@@ -45,6 +49,55 @@ class BinarySearchTree {
             }
         }
 
+    }
+
+    removeNode(node, value) {
+
+        if(node === null) {
+            return null;
+        } else if(value < node.value) {
+            node.left = this.removeNode(node.left, value);
+            return node;
+        } else if(value > node.value) {
+            node.right = this.removeNode(node.right, value);
+            return node;
+        } else {
+
+            if(node.left === null && node.right === null) {
+                node = null;
+                return node;
+            } else if(node.left === null) {
+                node = node.right;
+                return node;
+            } else if(node.right === null) {
+                node = node.left;
+                return node;
+            } else {
+                let swap = this.minNode(node.right);
+                node.value = swap.value;
+                node.right = this.removeNode(node.right, swap.value);
+                return node;
+
+            }
+
+        }
+
+    }
+
+    search(value, node = this.root) {
+        if(node.value === value) {
+            return true;
+        } else {
+            if(value < node.value) {
+                return node.left ? this.search(value, node.left) : false;
+            } else {
+                return node.right ? this.search(value, node.right) : false;
+            }
+        }
+    }
+
+    minNode(node) {
+        return (node.left === null) ? node : this.minNode(node.left);
     }
 
     print(node) {
